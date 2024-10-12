@@ -2,6 +2,7 @@
 
 ![GitHub License](https://img.shields.io/github/license/EricZhou05/ESurfingDialerTutorial)
 
+
 借助第三方 [广东电信天翼校园（ZSM验证）登入认证客户端](https://github.com/Rsplwe/ESurfingDialer)，实现自动认证联网的效果。配合软路由 Docker 部署可实现多设备共享。脚本原作者的说明比较简略难懂，下面的教程是自己一步步摸索过来的，提供给后面的学弟学妹，希望能让大家少走一些弯路。
 
 
@@ -73,45 +74,9 @@
 
 进入 OpenWrt 系统后，即可部署 Docker 镜像并创建容器。
 
-##### 方法一：使用现成的 Docker 镜像
+##### 方法一：一键运行Docker镜像（推荐）
 
-1. 下载我打包好的镜像文件（版本：ESurfingDialer-1.7.0-all）：[下载链接](https://pan.quark.cn/s/3b5473c01149)
-
-2. 在OpenWrt系统主页点击“文件管理”，进入 `/tmp` 目录，上传下载好的 `dialer.tar`。
-
-<img src="https://github.com/user-attachments/assets/e639c74a-c97e-4b8b-ab20-44c4b4a5309e" width="700px">
-<img src="https://github.com/user-attachments/assets/38d42459-a4df-4c08-96a1-c5c58d998423" width="700px">
-
-
-4. 返回主页，点击“服务” -> “终端”，输入账号 `root` 和密码，连接到终端。
-
-<img src="https://github.com/user-attachments/assets/bb4fbd89-bb3e-4bed-b387-ca1d519e46f1" width="700px">
-
-5. 在终端中粘贴以下命令，加载 Docker 镜像：
-
-   ```bash
-   docker load -i /tmp/dialer.tar
-   ```
-
-6. 镜像创建完成后，粘贴以下命令运行容器：
-
-   ```bash
-   docker run -itd -e DIALER_USER=<用户名/手机号> -e DIALER_PASSWORD=<密码> --name dialer-client --network host --restart=always dialer
-   ```
-
-   > **注意**：将 `<用户名/手机号>` 和 `<密码>` 替换为你的信息。
-
-7. 输入以下命令查看容器日志，检查运行状态：
-
-   ```bash
-   docker logs -f dialer-client
-   ```
-
-   如果输出以下信息，则表示部署成功：
-
-   ```
-   INFO [com.rsplwe.esurfing.Client] (Client:82) - The login has been authorized.
-   ```
+**详细可访问[一键脚本](https://github.com/dogliu666/ESurfingDialer-For-Docker)**
 
 ##### 方法二：自行打包 Docker 镜像
 
